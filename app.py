@@ -3,6 +3,7 @@ Two resources:
 item: return information about a single item
 items: return a list of all items in the database
 '''
+import os
 
 from flask import Flask
 from flask_restful import Api
@@ -16,7 +17,7 @@ from resources.store import Store, StoreList
 
 app = Flask(__name__)
 # this tells SQLALCHEMY that the database lives in the root directory
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 # this turns off flask sqlalchemy tracker to improve some performance
 app.config['SQLALCHEMY_TRACK_MODIFCATIONS'] = False
 app.secret_key = 'top_secret'
